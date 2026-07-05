@@ -1,0 +1,1241 @@
+:root {
+  --indigo: #1e2a4a;
+  --indigo-deep: #141d33;
+  --marigold: #f2a93b;
+  --marigold-deep: #d68e22;
+  --teal: #12766b;
+  --teal-deep: #0b5951;
+  --paper: #faf5ea;
+  --paper-dim: #f0e9da;
+  --ink: #22252b;
+  --ink-soft: #5b5f6b;
+  --coral: #e2574c;
+  --line: rgba(34, 37, 43, 0.12);
+  --card-bg: #ffffff;
+  --radius-card: 20px;
+  --shadow-card: 0 10px 30px rgba(20, 29, 51, 0.1);
+  --shadow-card-hover: 0 16px 40px rgba(20, 29, 51, 0.16);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --indigo: #10182e;
+  --indigo-deep: #0a0f20;
+  --marigold: #f2a93b;
+  --marigold-deep: #ffc266;
+  --teal: #2bb3a3;
+  --teal-deep: #7fe0d2;
+  --paper: #171a22;
+  --paper-dim: #1f232d;
+  --ink: #eceef2;
+  --ink-soft: #9aa0ac;
+  --coral: #ff7a6e;
+  --line: rgba(255, 255, 255, 0.12);
+  --card-bg: #1e2230;
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+
+[data-theme='dark'] .hotel-card,
+[data-theme='dark'] .filter-panel,
+[data-theme='dark'] .booking-card,
+[data-theme='dark'] .modal-card,
+[data-theme='dark'] .review-card,
+[data-theme='dark'] .recent-card {
+  background: var(--card-bg);
+}
+
+[data-theme='dark'] .sort-select select,
+[data-theme='dark'] .page-btn,
+[data-theme='dark'] .theme-toggle {
+  background: var(--card-bg);
+  color: var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Public Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* ---------- Layout ---------- */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  background: var(--indigo);
+  color: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--marigold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--indigo-deep);
+  font-weight: 800;
+  font-size: 16px;
+  transform: rotate(-6deg);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(250, 245, 234, 0.75);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: var(--paper);
+  background: rgba(250, 245, 234, 0.08);
+}
+
+.nav-link.active {
+  color: var(--indigo-deep);
+  background: var(--marigold);
+}
+
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 245, 234, 0.25);
+  background: rgba(250, 245, 234, 0.08);
+  color: var(--paper);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+}
+
+.theme-toggle:hover {
+  background: rgba(250, 245, 234, 0.16);
+}
+
+.nav-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--coral);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+/* ---------- Hero / search ---------- */
+.hero {
+  background: linear-gradient(180deg, var(--indigo) 0%, var(--indigo-deep) 100%);
+  color: var(--paper);
+  padding: 48px 0 84px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(242, 169, 59, 0.14) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  color: var(--marigold);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 600;
+  max-width: 640px;
+  line-height: 1.08;
+}
+
+.hero p {
+  margin: 16px 0 0;
+  max-width: 520px;
+  color: rgba(250, 245, 234, 0.78);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ---------- Search panel (ticket styled) ---------- */
+.search-panel {
+  position: relative;
+  z-index: 2;
+  margin-top: 32px;
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card-hover);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr auto;
+  gap: 0;
+}
+
+.search-field {
+  padding: 16px 20px;
+  border-right: 1px dashed var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.search-field:last-of-type {
+  border-right: none;
+}
+
+.search-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.search-field select,
+.search-field input {
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 0;
+  width: 100%;
+}
+
+.search-field select:focus,
+.search-field input:focus {
+  outline: none;
+}
+
+.search-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 26px;
+  background: var(--marigold);
+  color: var(--indigo-deep);
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  transition: background 0.15s ease;
+}
+
+.search-submit:hover {
+  background: var(--marigold-deep);
+}
+
+@media (max-width: 900px) {
+  .search-panel {
+    grid-template-columns: 1fr 1fr;
+  }
+  .search-field {
+    border-right: 1px dashed var(--line);
+  }
+  .search-field:nth-child(2n) {
+    border-right: none;
+  }
+  .search-submit {
+    grid-column: span 2;
+    border-radius: 0 0 var(--radius-card) var(--radius-card);
+    padding: 14px;
+  }
+}
+
+/* ---------- Results toolbar ---------- */
+.results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 40px 0 20px;
+}
+
+.results-count {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.results-count strong {
+  color: var(--ink);
+}
+
+.sort-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.sort-select select {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.chip-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.chip button {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+}
+
+.chip-clear {
+  background: none;
+  border: none;
+  color: var(--teal-deep);
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ---------- Hotel grid & card (boarding-pass styled) ---------- */
+.hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+  padding-bottom: 40px;
+}
+
+.hotel-card {
+  position: relative;
+  background: #fff;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.hotel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.hotel-photo-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--paper-dim);
+}
+
+.hotel-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.hotel-card:hover .hotel-photo-wrap img {
+  transform: scale(1.05);
+}
+
+.airport-code {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(20, 29, 51, 0.78);
+  color: var(--paper);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 4px 9px;
+  border-radius: 999px;
+  backdrop-filter: blur(2px);
+}
+
+.fav-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--coral);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
+}
+
+.fav-toggle:hover {
+  transform: scale(1.08);
+}
+
+.hotel-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.hotel-name {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.hotel-location {
+  font-size: 13px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stub-divider {
+  border-top: 1px dashed var(--line);
+  margin: 4px 0 0;
+  position: relative;
+}
+
+.stub-divider::before,
+.stub-divider::after {
+  content: '';
+  position: absolute;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.stub-divider::before {
+  left: -18px;
+}
+
+.stub-divider::after {
+  right: -18px;
+}
+
+.hotel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.hotel-price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--indigo);
+}
+
+.hotel-price span {
+  font-size: 11px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.rating-stamp {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--teal);
+  color: var(--teal-deep);
+}
+
+/* ---------- Filter panel ---------- */
+.layout-with-sidebar {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout-with-sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filter-panel {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+  position: sticky;
+  top: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.filter-group label.filter-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.filter-panel input[type='range'] {
+  width: 100%;
+  accent-color: var(--marigold-deep);
+}
+
+.range-values {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.rating-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rating-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.reset-filters {
+  border: 1px solid var(--line);
+  background: none;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.reset-filters:hover {
+  background: var(--paper-dim);
+}
+
+/* ---------- Pagination ---------- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px 0 60px;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  min-width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.page-btn.active {
+  background: var(--indigo);
+  border-color: var(--indigo);
+  color: var(--paper);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- States ---------- */
+.state-block {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--ink-soft);
+}
+
+.state-block h3 {
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--paper-dim);
+  border-top-color: var(--marigold-deep);
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Detail page ---------- */
+.detail-header {
+  background: var(--indigo);
+  color: var(--paper);
+  padding: 24px 0 40px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--marigold);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.detail-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.detail-title-row h1 {
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 600;
+}
+
+.detail-location {
+  color: rgba(250, 245, 234, 0.75);
+  font-size: 14.5px;
+  margin-top: 8px;
+}
+
+.detail-gallery {
+  margin-top: -48px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  height: 420px;
+}
+
+.gallery-main {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-sub {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+}
+
+.gallery-sub button {
+  border: none;
+  padding: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.gallery-sub img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-more-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 29, 51, 0.55);
+  color: #fff;
+  font-weight: 700;
+  font-family: 'IBM Plex Mono', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .detail-gallery {
+    grid-template-columns: 1fr;
+    height: auto;
+    margin-top: 20px;
+  }
+  .gallery-main {
+    height: 260px;
+  }
+  .gallery-sub {
+    grid-auto-flow: column;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    height: 140px;
+  }
+}
+
+.detail-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  padding: 40px 0 80px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .detail-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detail-section h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.detail-description {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.booking-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  padding: 22px;
+  position: sticky;
+  top: 90px;
+}
+
+.booking-price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--indigo);
+}
+
+.booking-price span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.booking-cta {
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+  border-radius: 12px;
+  border: none;
+  background: var(--marigold);
+  color: var(--indigo-deep);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.booking-cta:hover {
+  background: var(--marigold-deep);
+}
+
+.booking-fav {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+/* ---------- Recently viewed ---------- */
+.recent-strip-wrap {
+  margin-top: 28px;
+}
+
+.recent-strip-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.recent-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.recent-card {
+  flex: 0 0 auto;
+  width: 160px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+
+.recent-card img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  display: block;
+}
+
+.recent-card-body {
+  padding: 8px 10px 10px;
+}
+
+.recent-card-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+
+.recent-card-price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--indigo);
+}
+
+/* ---------- View toggle (grid/map) ---------- */
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.view-toggle button {
+  border: none;
+  background: #fff;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.view-toggle button.active {
+  background: var(--indigo);
+  color: var(--paper);
+}
+
+/* ---------- Map view ---------- */
+.map-wrap {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.map-marker circle {
+  fill: var(--marigold);
+  stroke: var(--indigo-deep);
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: fill 0.15s ease;
+}
+
+.map-marker:hover circle {
+  fill: var(--coral);
+}
+
+.map-marker text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  fill: var(--indigo-deep);
+  pointer-events: none;
+  font-weight: 600;
+}
+
+.map-marker .marker-count {
+  font-size: 8px;
+  fill: var(--indigo-deep);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.map-hint {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+}
+
+/* ---------- Share button ---------- */
+.share-btn {
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: none;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  color: var(--ink);
+  position: relative;
+}
+
+.share-toast {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--indigo-deep);
+  color: var(--paper);
+  font-size: 11.5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* ---------- Booking form ---------- */
+.booking-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.booking-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.booking-form-field label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.booking-form-field input[type='date'] {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.guest-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.guest-stepper button {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.booking-summary-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 3px 0;
+}
+
+.booking-confirmation {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.booking-confirmation .check {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 18px;
+}
+
+/* ---------- Reviews ---------- */
+.reviews-section {
+  margin-top: 28px;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+
+.review-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.review-name {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.review-date {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+
+.review-stars {
+  color: var(--marigold-deep);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.review-comment {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.review-form {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 16px;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-form input[type='text'],
+.review-form textarea,
+.review-form select {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 11px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  width: 100%;
+}
+
+.review-form textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+
+.review-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.review-submit {
+  align-self: flex-start;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--marigold);
+  color: var(--indigo-deep);
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.review-submit:hover {
+  background: var(--marigold-deep);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  margin-top: auto;
+  background: var(--indigo-deep);
+  color: rgba(250, 245, 234, 0.6);
+  font-size: 13px;
+  padding: 26px 0;
+  text-align: center;
+}
