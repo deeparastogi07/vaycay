@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="container navbar-inner">
         <NavLink to="/" className="brand">
           <span className="brand-mark">V</span>
-          Voyage
+          Vaycay
         </NavLink>
         <nav className="nav-links">
           <NavLink
